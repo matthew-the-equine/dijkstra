@@ -2,12 +2,12 @@
 #include "singly_linked_list.h"
 using namespace std;
 
-template<class T>
+template<typename T>
 singly_linked_list<T>::singly_linked_list() : head(NULL), tail(NULL)
 {
 }
 
-template<class T>
+template<typename T>
 void singly_linked_list<T>::push(T value)
 {
   node<T> *temp = new node<T>;
@@ -27,7 +27,7 @@ void singly_linked_list<T>::push(T value)
   }
 }
 
-template<class T>
+template<typename T>
 void singly_linked_list<T>::display()
 {
   node<T> *temp = new node<T>;

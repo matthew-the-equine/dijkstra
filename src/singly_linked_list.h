@@ -1,14 +1,14 @@
 #include <iostream>
 using namespace std;
 
-template<class T>
+template<typename T>
 struct node
 {
   T data;
   node<T> *next;
 };
 
-template<class T>
+template<typename T>
 class singly_linked_list
 {
 private:

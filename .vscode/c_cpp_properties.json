@@ -1,0 +1,40 @@
+{
+    "configurations": [
+        {
+            "name": "Mac",
+            "includePath": [
+                "/usr/include",
+                "${workspaceFolder}/src"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE"
+            ],
+            "intelliSenseMode": "clang-x64",
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            }
+        },
+        {
+          "name": "Win32",
+          "includePath": [
+              "${workspaceFolder}"
+          ],
+          "defines": [
+              "_DEBUG",
+              "UNICODE"
+          ],
+          "compilerPath": "C:\\mingw-w64\\bin\\gcc.exe",
+          "intelliSenseMode": "clang-x64",
+          "browse": {
+              "path": [
+                  "${workspaceFolder}"
+              ],
+              "limitSymbolsToIncludedHeaders": true,
+              "databaseFilename": ""
+          }
+      }
+    ],
+    "version": 4
+}

@@ -1,0 +1,41 @@
+program drugi: (6) D?kstra
+Celem projektu jest przeæwiczenie implementacji i korzystania z dynamicznych struktur
+danych (np. listy, drzewa) i zarz¹dzania pamiêci¹ w programie. Warunkiem sine qua non
+jest u¿ycie w programie tych struktur. U¿ycie bibliotecznych kontenerów (np. vector,
+list) nie spe³nia tego warunku.
+Przed implementacj¹ konieczna jest akceptacja struktury danych przez prowadz¹cego
+zajêcia.
+Napisaæ program, do znajdowania najkrótszych œcie¿ek miêdzy zadanym wierzcho³kiem grafu a wszystkimi pozosta³ymi wierzcho³kami tego grafu. Program wykorzystuje algorytm D?kstry.
+Plik z grafem ma nastêpuj¹c¹ postaæ:
+• Ka¿da krawêdŸ jest podana w osobnej linii.
+• przyk³ad krawêdzi skierowanej: 4 -> 5 : 54.4 oznacza krawêdŸ skierowan¹ od wierzcho³ka 4 do 5,
+waga (d³ugoœæ) krawêdzi wynosi 54.4
+• przyk³ad krawêdzi nieskierowanej: 3 - 6 : 12.5 oznacza krawêdŸ nieskierowan¹ miêdzy wierzcho³kami 3 i 6 o wadze (d³ugoœci) 12.5
+• W pliku mog¹ wyst¹piæ puste linie.
+• W linii mog¹ wyst¹piæ dodatkowe (nadmiarowe) znaki bia³e.
+Przyk³adowy plik z grafem:
+3 -> 2 : 54.5
+12 -> 3 : 4.5
+2 -> 5 : 34.65
+5 -> 3 : 2.4
+3 -> 12 : 1.00
+Drugim plikiem wejœciowym programu, jest plik z numerami wierzcho³ków, dla których chcemy wyznaczyæ najkrótsze odleg³oœci do pozosta³ych wierzcho³ków. Przyk³adowy plik:
+2
+6
+12
+W pliku wynikowym zostan¹ zapisane trasy o minimalnej d³ugoœci dla zadanych wierzcho³ków, np.
+wierzcholek startowy: 2
+2 -> 5 -> 3 : 37.05
+2 -> 5 : 34.65
+2 -> 5 -> 3 -> 12 : 38.05
+wierzcholek startowy: 6
+brak wierzcholka 6 w grafie
+wierzcholek startowy: 12
+12 -> 3 : 4.5
+12 -> 3 -> 2 : 59.0
+12 -> 3 -> 2 -> 5 : 93.65
+Program uruchamiany jest z linii poleceñ z wykorzystaniem nastêpuj¹cych prze³¹czników (kolejnoœæ
+prze³¹czników jest dowolna):
+-g plik wejœciowy z grafem
+-w plik wyjœciowy z wierzcho³kami
+-o plik wyjœciowy z wynikami

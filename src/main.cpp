@@ -1,5 +1,5 @@
 #include <iostream>
-#include "singly_linked_list.h"
+#include "weighted_graph.h"
 using namespace std;
 
 int main() {
@@ -8,4 +8,8 @@ int main() {
   a.push(30);
   a.push(-1);
   a.display();
+
+  weighted_graph<int, int> graph = weighted_graph<int, int>();
+  graph.add_vertex(1);
+  graph.display();
 }

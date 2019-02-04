@@ -11,7 +11,7 @@
         "-g",
         "-o",
         "dijkstra.out",
-        "src/*.cpp",
+        "src/main.cpp",
       ],
       "group": {
         "kind": "build",

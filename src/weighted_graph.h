@@ -12,6 +12,8 @@ struct weighted_edge
 
   weighted_edge();
   weighted_edge(V, V, W);
+
+  string to_string();
 };
 
 template <typename V, typename W>
@@ -22,6 +24,14 @@ weighted_edge<V, W>::weighted_edge()
 template <typename V, typename W>
 weighted_edge<V, W>::weighted_edge(V from, V to, W weight) : from(from), to(to), weight(weight)
 {
+}
+
+template <typename V, typename W>
+string weighted_edge<V, W>::to_string()
+{
+  stringstream ss;
+  ss << from << " -> " << to << " : " << weight;
+  return ss.str();
 }
 
 template <typename V, typename W>

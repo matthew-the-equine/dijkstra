@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <sstream>
+#include <string.h>
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -29,4 +30,14 @@ weighted_graph<int, float> read_graph_from_file(const char *file_name)
   }
 
   return graph;
+}
+
+void read_command_line_parameters(int argc, char** argv, weighted_graph<int, float>& graph)
+{
+  for (int i = 1; i < argc; i+=2)
+  {
+    if (!strcmp(argv[i], "-g")) {
+      graph = read_graph_from_file(argv[i + 1]);
+    }
+  }
 }

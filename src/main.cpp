@@ -10,8 +10,6 @@ int main() {
   list.iterate([](int i) -> void { cout << i << endl; });
 
   weighted_graph<int, float> graph = weighted_graph<int, float>();
-  graph.add_vertex(1);
-  graph.add_vertex(2);
   graph.add_edge(weighted_edge<int, float>(1, 2, 5.6f));
   graph.adjacent(2).iterate([](weighted_edge<int, float> edge) -> void { cout << edge.from << '-' << edge.to << ':' << edge.weight << endl; });
 }

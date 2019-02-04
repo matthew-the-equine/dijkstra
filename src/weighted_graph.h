@@ -53,6 +53,14 @@ void weighted_graph<V, W>::add_vertex(V vertex)
 template <typename V, typename W>
 void weighted_graph<V, W>::add_edge(weighted_edge<V, W> edge)
 {
+  if (adjacents.count(edge.from))
+  {
+    add_vertex(edge.from);
+  }
+  if (adjacents.count(edge.to))
+  {
+    add_vertex(edge.to);
+  }
   adjacents[edge.from].push(edge);
   adjacents[edge.to].push(edge);
 }

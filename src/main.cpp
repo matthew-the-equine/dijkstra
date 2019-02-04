@@ -1,15 +1,15 @@
 #include <iostream>
-#include "weighted_graph.h"
+#include "file_layer.cpp"
 using namespace std;
 
-int main() {
-  singly_linked_list<int> list = singly_linked_list<int>();
-  list.push(1);
-  list.push(30);
-  list.push(-1);
-  list.iterate([](int i) -> void { cout << i << endl; });
+void display_edge(weighted_edge<int, float> edge)
+{
+  cout << edge.from << " -> " << edge.to << " : " << edge.weight << endl;
+}
 
-  weighted_graph<int, float> graph = weighted_graph<int, float>();
-  graph.add_edge(weighted_edge<int, float>(1, 2, 5.6f));
-  graph.adjacent(2).iterate([](weighted_edge<int, float> edge) -> void { cout << edge.from << '-' << edge.to << ':' << edge.weight << endl; });
+int main() {
+  weighted_graph<int, float> graph = read_graph_from_file("notes/graf.txt");
+
+  graph.adjacent(12).iterate(&display_edge);
+  graph.adjacent(3).iterate(&display_edge);
 }

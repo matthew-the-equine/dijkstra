@@ -7,6 +7,9 @@ struct node
   node<T> *next;
 };
 
+template <typename T>
+class forward_iterator;
+
 template<typename T>
 class singly_linked_list
 {
@@ -17,7 +20,25 @@ public:
   singly_linked_list<T>();
 
   void push(T);
-  void iterate(void (*func)(T));
+
+  forward_iterator<T> begin();
+  forward_iterator<T> end();
+};
+
+template <typename T>
+class forward_iterator
+{
+private:
+  node<T> *ptr;
+
+public:
+  forward_iterator(node<T> *);
+
+  T& operator*();
+  forward_iterator &operator++();
+  bool operator==(const forward_iterator &);
+  bool operator!=(const forward_iterator &);
+  forward_iterator &operator=(const forward_iterator &i);
 };
 
 template<typename T>
@@ -45,14 +66,52 @@ void singly_linked_list<T>::push(T value)
   }
 }
 
-template<typename T>
-void singly_linked_list<T>::iterate(void (*func)(T))
+template <typename T>
+forward_iterator<T> singly_linked_list<T>::begin()
 {
-  node<T> *temp = new node<T>;
-  temp = head;
-  while (temp != NULL)
-  {
-    func(temp->data);
-    temp = temp->next;
-  };
+  return forward_iterator<T>(head);
+}
+
+template <typename T>
+forward_iterator<T> singly_linked_list<T>::end()
+{
+  return forward_iterator<T>(tail);
+}
+
+template <typename T>
+forward_iterator<T>::forward_iterator(node<T> *ptr) : ptr(ptr)
+{
+}
+
+template <typename T>
+T& forward_iterator<T>::operator*() { return ptr->data; }
+
+template <typename T>
+forward_iterator<T>& forward_iterator<T>::operator++()
+{
+  ptr = ptr->next;
+  return *this;
+}
+
+template <typename T>
+bool forward_iterator<T>::operator==(const forward_iterator &i)
+{
+  if (ptr == i.ptr)
+    return true;
+
+  return false;
+}
+
+template <typename T>
+bool forward_iterator<T>::operator!=(const forward_iterator &i)
+{
+  return !(*this == i);
+}
+
+template <typename T>
+forward_iterator<T>& forward_iterator<T>::operator=(const forward_iterator &i)
+{
+  ptr = i.ptr;
+
+  return *this;
 }

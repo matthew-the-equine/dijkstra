@@ -1,5 +1,6 @@
 #include <iostream>
 #include "file_layer.cpp"
+#include "dijsktra.h"
 using namespace std;
 
 void display_edge(weighted_edge<int, float> edge)
@@ -15,4 +16,6 @@ int main(int argc, char** argv)
 
   graph.adjacent(12).iterate(&display_edge);
   graph.adjacent(3).iterate(&display_edge);
+
+  //dijkstra dijkstra(graph, 3);
 }

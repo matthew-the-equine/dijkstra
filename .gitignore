@@ -1,2 +1,3 @@
-dijkstra.out.dSYM
-dijkstra.out
+*.out.dSYM
+*.out
+*.exe

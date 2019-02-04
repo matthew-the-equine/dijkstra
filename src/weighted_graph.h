@@ -1,4 +1,5 @@
 #include <map>
+#include <iostream>
 #include "singly_linked_list.h"
 using namespace std;
 
@@ -8,13 +9,26 @@ struct weighted_edge
   V from;
   V to;
   W weight;
+
+  weighted_edge();
+  weighted_edge(V, V, W);
 };
+
+template <typename V, typename W>
+weighted_edge<V, W>::weighted_edge()
+{
+}
+
+template <typename V, typename W>
+weighted_edge<V, W>::weighted_edge(V from, V to, W weight) : from(from), to(to), weight(weight)
+{
+}
 
 template <typename V, typename W>
 class weighted_graph
 {
 private:
-  map<V, singly_linked_list<weighted_edge<V, W> >* > adjacents;
+  map<V, singly_linked_list<weighted_edge<V, W> > > adjacents;
 
 public:
   weighted_graph<V, W>();
@@ -23,8 +37,6 @@ public:
   void add_edge(weighted_edge<V, W>);
   
   singly_linked_list<weighted_edge<V, W> > adjacent(V);
-
-  void display();
 };
 
 template <typename V, typename W>
@@ -35,7 +47,7 @@ weighted_graph<V, W>::weighted_graph()
 template <typename V, typename W>
 void weighted_graph<V, W>::add_vertex(V vertex)
 {
-  adjacents[vertex] = new singly_linked_list<weighted_edge<V, W> >();
+  adjacents[vertex] = singly_linked_list<weighted_edge<V, W> >();
 }
 
 template <typename V, typename W>
@@ -49,14 +61,4 @@ template <typename V, typename W>
 singly_linked_list<weighted_edge<V, W> > weighted_graph<V, W>::adjacent(V vertex)
 {
   return adjacents[vertex];
-}
-
-template <typename V, typename W>
-void weighted_graph<V, W>::display()
-{
-  //typename std::map<V, singly_linked_list<weighted_edge<V, W> > >::iterator it = adjacents.begin();
-  // for ( it ; it != adjacents.end(); it++ )
-  // {
-  //   cout << it->first << ':' << it->second.display() << endl ;
-  // }
 }

@@ -3,13 +3,15 @@
 using namespace std;
 
 int main() {
-  singly_linked_list<int> a = singly_linked_list<int>();
-  a.push(1);
-  a.push(30);
-  a.push(-1);
-  a.display();
+  singly_linked_list<int> list = singly_linked_list<int>();
+  list.push(1);
+  list.push(30);
+  list.push(-1);
+  list.iterate([](int i) -> void { cout << i << endl; });
 
-  weighted_graph<int, int> graph = weighted_graph<int, int>();
+  weighted_graph<int, float> graph = weighted_graph<int, float>();
   graph.add_vertex(1);
-  graph.display();
+  graph.add_vertex(2);
+  graph.add_edge(weighted_edge<int, float>(1, 2, 5.6f));
+  graph.adjacent(2).iterate([](weighted_edge<int, float> edge) -> void { cout << edge.from << '-' << edge.to << ':' << edge.weight << endl; });
 }

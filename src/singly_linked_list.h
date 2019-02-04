@@ -1,4 +1,3 @@
-#include <iostream>
 using namespace std;
 
 template<typename T>
@@ -18,7 +17,7 @@ public:
   singly_linked_list<T>();
 
   void push(T);
-  void display();
+  void iterate(void (*func)(T));
 };
 
 template<typename T>
@@ -47,13 +46,13 @@ void singly_linked_list<T>::push(T value)
 }
 
 template<typename T>
-void singly_linked_list<T>::display()
+void singly_linked_list<T>::iterate(void (*func)(T))
 {
   node<T> *temp = new node<T>;
   temp = head;
   while (temp != NULL)
   {
-    cout << temp->data << ",";
+    func(temp->data);
     temp = temp->next;
-  }
+  };
 }

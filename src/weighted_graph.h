@@ -43,6 +43,8 @@ private:
 public:
   weighted_graph<V, W>();
 
+  singly_linked_list<V> vertices();
+
   void add_vertex(V);
   void add_edge(weighted_edge<V, W>);
   
@@ -52,6 +54,17 @@ public:
 template <typename V, typename W>
 weighted_graph<V, W>::weighted_graph()
 {
+}
+
+template <typename V, typename W>
+singly_linked_list<V> weighted_graph<V, W>::vertices()
+{
+  singly_linked_list<V> vertices = singly_linked_list<V>();
+  for (typename map<V, singly_linked_list<weighted_edge<V, W> > >::iterator it = adjacents.begin(); it != adjacents.end(); ++it)
+  {
+    vertices.push(it->first);
+  }
+  return vertices;
 }
 
 template <typename V, typename W>

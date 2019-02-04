@@ -17,6 +17,8 @@ private:
   node<T> *head, *tail;
 
 public:
+  int size;
+
   singly_linked_list<T>();
 
   void push(T);
@@ -42,7 +44,7 @@ public:
 };
 
 template<typename T>
-singly_linked_list<T>::singly_linked_list() : head(NULL), tail(NULL)
+singly_linked_list<T>::singly_linked_list() : head(NULL), tail(NULL), size(0)
 {
 }
 
@@ -64,6 +66,7 @@ void singly_linked_list<T>::push(T value)
     tail->next = temp;
     tail = temp;
   }
+  size++;
 }
 
 template <typename T>
@@ -75,7 +78,7 @@ forward_iterator<T> singly_linked_list<T>::begin()
 template <typename T>
 forward_iterator<T> singly_linked_list<T>::end()
 {
-  return forward_iterator<T>(tail);
+  return forward_iterator<T>(NULL);
 }
 
 template <typename T>

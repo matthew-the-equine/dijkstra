@@ -1,135 +1,129 @@
-#include <cstdio>
 
-class MinIndexedPQ
+using namespace std;
+
+template<typename T>
+class index_min_priority_queue
 {
-  int NMAX, N, *heap, *index, *keys;
+private:
+  int max_N;
+  int n;
+  int* pq;
+  int* qp;
+  T* keys;
 
-  void swap(int i, int j)
-  {
-    int t = heap[i];
-    heap[i] = heap[j];
-    heap[j] = t;
-    index[heap[i]] = i;
-    index[heap[j]] = j;
-  }
+  void swim(int k);
+  void sink(int k);
 
-  void bubbleUp(int k)
-  {
-    while (k > 1 && keys[heap[k / 2]] > keys[heap[k]])
-    {
-      swap(k, k / 2);
-      k = k / 2;
-    }
-  }
-
-  void bubbleDown(int k)
-  {
-    int j;
-    while (2 * k <= N)
-    {
-      j = 2 * k;
-      if (j < N && keys[heap[j]] > keys[heap[j + 1]])
-        j++;
-      if (keys[heap[k]] <= keys[heap[j]])
-        break;
-      swap(k, j);
-      k = j;
-    }
-  }
+  bool greater(int i, int j);
+  void exch(int i, int j);
 
 public:
-  MinIndexedPQ(int NMAX)
-  {
-    this->NMAX = NMAX;
-    N = 0;
-    keys = new int[NMAX + 1];
-    heap = new int[NMAX + 1];
-    index = new int[NMAX + 1];
-    for (int i = 0; i <= NMAX; i++)
-      index[i] = -1;
-  }
+  index_min_priority_queue(int);
 
-  ~MinIndexedPQ()
-  {
-    delete[] keys;
-    delete[] heap;
-    delete[] index;
-  }
+  bool contains(int i);
+  bool is_empty();
 
-  bool isEmpty()
-  {
-    return N == 0;
-  }
+  void insert(int i, T key);
+  void changeKey(int i, T key);
 
-  bool contains(int i)
-  {
-    return index[i] != -1;
-  }
-
-  int size()
-  {
-    return N;
-  }
-
-  void insert(int i, int key)
-  {
-    N++;
-    index[i] = N;
-    heap[N] = i;
-    keys[i] = key;
-    bubbleUp(N);
-  }
-
-  int minIndex()
-  {
-    return heap[1];
-  }
-
-  int minKey()
-  {
-    return keys[heap[1]];
-  }
-
-  int deleteMin()
-  {
-    int min = heap[1];
-    swap(1, N--);
-    bubbleDown(1);
-    index[min] = -1;
-    heap[N + 1] = -1;
-    return min;
-  }
-
-  int keyOf(int i)
-  {
-    return keys[i];
-  }
-
-  void changeKey(int i, int key)
-  {
-    keys[i] = key;
-    bubbleUp(index[i]);
-    bubbleDown(index[i]);
-  }
-
-  void decreaseKey(int i, int key)
-  {
-    keys[i] = key;
-    bubbleUp(index[i]);
-  }
-
-  void increaseKey(int i, int key)
-  {
-    keys[i] = key;
-    bubbleDown(index[i]);
-  }
-
-  void deleteKey(int i)
-  {
-    int ind = index[i];
-    swap(ind, N--);
-    bubbleUp(ind);
-    bubbleDown(ind);
-    index[i] = -1;
-  }
+  int del_min();
 };
+
+template<typename T>
+index_min_priority_queue<T>::index_min_priority_queue(int max_N) :
+  max_N(max_N),
+  n(0)
+{
+  pq = new int[max_N + 1];
+  qp = new int[max_N + 1];
+  keys = new T[max_N + 1];
+  for (int i = 0; i <= max_N; i++)
+    qp[i] = -1;
+}
+
+template<typename T>
+bool index_min_priority_queue<T>::is_empty()
+{
+  return n == 0;
+}
+
+template<typename T>
+bool index_min_priority_queue<T>::contains(int i) 
+{
+  if (i < 0 || i >= max_N) 
+    return false;
+  return qp[i] != -1;
+}
+
+template<typename T>
+void index_min_priority_queue<T>::insert(int i, T key) 
+{
+  if (i < 0 || i >= max_N || contains(i)) 
+    return;
+
+  n++;
+  qp[i] = n;
+  pq[n] = i;
+  keys[i] = key;
+  swim(n);
+}
+
+template<typename T>
+void index_min_priority_queue<T>::changeKey(int i, T key) 
+{
+  if (i < 0 || i >= max_N || !contains(i)) 
+    return;
+  keys[i] = key;
+  swim(qp[i]);
+  sink(qp[i]);
+}
+
+template<typename T>
+int index_min_priority_queue<T>::del_min() 
+{
+  int min = pq[1];
+  exch(1, n--);
+  sink(1);
+  qp[min] = -1;        
+  pq[n+1] = -1;        
+  return min;
+}
+
+template<typename T>
+void index_min_priority_queue<T>::swim(int k) 
+{
+  while (k > 1 && greater(k/2, k)) 
+  {
+    exch(k, k/2);
+    k = k/2;
+  }
+}
+
+template<typename T>
+void index_min_priority_queue<T>::sink(int k) 
+{
+  while (2*k <= n) 
+  { 
+    int j = 2*k;
+    if (j < n && greater(j, j+1)) j++;
+    if (!greater(k, j)) break;
+    exch(k, j);
+    k = j;
+  }
+}
+
+template<typename T>
+bool index_min_priority_queue<T>::greater(int i, int j) 
+{
+  return keys[pq[i]] > keys[pq[j]];
+}
+
+template<typename T>
+void index_min_priority_queue<T>::exch(int i, int j) 
+{
+  int swap = pq[i];
+  pq[i] = pq[j];
+  pq[j] = swap;
+  qp[pq[i]] = i;
+  qp[pq[j]] = j;
+}

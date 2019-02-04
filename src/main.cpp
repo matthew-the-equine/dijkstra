@@ -21,4 +21,13 @@ int main(int argc, char** argv)
   {
     cout << (*it).to_string() << endl;
   }
+
+  dijkstra dijkstra(graph, 3);
+  singly_linked_list<weighted_edge<int, float> > path = dijkstra.path_to(5);
+
+  cout << "dijkstra" << endl;
+  for (forward_iterator<weighted_edge<int, float> > it = path.begin(); it != path.end(); ++it)
+  {
+    cout << (*it).to_string() << endl;
+  }
 }

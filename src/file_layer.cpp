@@ -4,12 +4,12 @@
 #include <string>
 #include <fstream>
 #include <iostream>
-#include "weighted_graph.h"
+#include "weighted_digraph.h"
 using namespace std;
 
-weighted_graph<int, float> read_graph_from_file(const char *file_name)
+weighted_digraph<int, float> read_graph_from_file(const char *file_name)
 {
-  weighted_graph<int, float> graph = weighted_graph<int, float>();
+  weighted_digraph<int, float> graph = weighted_digraph<int, float>();
 
   ifstream file(file_name);
   if (file.is_open())
@@ -25,14 +25,14 @@ weighted_graph<int, float> read_graph_from_file(const char *file_name)
       int from, to;
       float weight;
       iss >> from >> to >> weight;
-      graph.add_edge(weighted_edge<int, float>(from, to, weight));
+      graph.add_edge(weighted_directed_edge<int, float>(from, to, weight));
     }
   }
 
   return graph;
 }
 
-void read_command_line_parameters(int argc, char** argv, weighted_graph<int, float>& graph)
+void read_command_line_parameters(int argc, char** argv, weighted_digraph<int, float>& graph)
 {
   for (int i = 1; i < argc; i+=2)
   {

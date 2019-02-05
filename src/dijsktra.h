@@ -15,7 +15,9 @@ private:
 public:
   dijkstra(weighted_digraph<int, float>, int);
 
+  bool has_path_to(int);
   singly_linked_list<weighted_directed_edge<int, float> > path_to(int);
+  float distance_to(int);
 };
 
 dijkstra::dijkstra(weighted_digraph<int, float> graph, int source) :
@@ -65,6 +67,11 @@ void dijkstra::relax(weighted_digraph<int, float> graph, int from)
   }
 }
 
+bool dijkstra::has_path_to(int vertex)
+{
+  return dist_to[vertex] < __FLT_MAX__;
+}
+
 singly_linked_list<weighted_directed_edge<int, float> > dijkstra::path_to(int vertex)
 {
   singly_linked_list<weighted_directed_edge<int, float> > edges = singly_linked_list<weighted_directed_edge<int, float> >();
@@ -73,4 +80,9 @@ singly_linked_list<weighted_directed_edge<int, float> > dijkstra::path_to(int ve
     edges.push(edge);
   }
   return edges;
+}
+
+float dijkstra::distance_to(int vertex)
+{
+  return dist_to[vertex];
 }

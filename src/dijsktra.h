@@ -21,11 +21,12 @@ public:
 dijkstra::dijkstra(weighted_digraph<int, float> graph, int source) :
   edge_to(map<int, weighted_directed_edge<int, float> >()),
   dist_to(map<int, float>()),
-  pq(index_min_priority_queue<float>(graph.vertices().size)) 
+  pq(1000) // hack -> it should be limited to V but vertices are not consecutive numbers, but it will work here as there is changeKey method
 {
   singly_linked_list<int> vertices = graph.vertices();
   for (forward_iterator<int> it = vertices.begin(); it != vertices.end(); ++it)
   {
+    edge_to[*it];
     dist_to[*it] = __FLT_MAX__;
   }
 
@@ -64,12 +65,12 @@ void dijkstra::relax(weighted_digraph<int, float> graph, int from)
   }
 }
 
-singly_linked_list<weighted_directed_edge<int, float> > dijkstra::path_to(int)
+singly_linked_list<weighted_directed_edge<int, float> > dijkstra::path_to(int vertex)
 {
   singly_linked_list<weighted_directed_edge<int, float> > edges = singly_linked_list<weighted_directed_edge<int, float> >();
-  for (typename map<int, weighted_directed_edge<int, float> >::iterator it = edge_to.begin(); it != edge_to.end(); ++it)
+  for (weighted_directed_edge<int, float> edge = edge_to[vertex]; edge_to.count(edge.from); edge = edge_to[edge.from])
   {
-    edges.push(it->second);
+    edges.push(edge);
   }
   return edges;
 }

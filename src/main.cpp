@@ -3,31 +3,34 @@
 #include "dijsktra.h"
 using namespace std;
 
+void show_paths(weighted_digraph<int, float> graph, int from, singly_linked_list<int> to)
+{
+  dijkstra dijkstra(graph, from);
+
+  for (forward_iterator<int> it = to.begin(); it != to.end(); ++it)
+  {
+    if (from != *it && dijkstra.has_path_to(*it))
+    {
+      singly_linked_list<weighted_directed_edge<int, float> > path = dijkstra.path_to(*it);
+
+      cout << "Path from " << from << " to " << *it << " with weight " << dijkstra.distance_to(*it) << endl;
+      for (forward_iterator<weighted_directed_edge<int, float> > it = path.begin(); it != path.end(); ++it)
+      { 
+        cout << (*it).to_string() << endl;
+      }
+    }
+  }
+}
+
 int main(int argc, char** argv) 
 {
-  weighted_graph<int, float> graph;
+  weighted_digraph<int, float> graph;
 
   read_command_line_parameters(argc, argv, graph);
 
-  singly_linked_list<weighted_edge<int, float> > adj12 = graph.adjacent(12);
-  singly_linked_list<weighted_edge<int, float> > adj3 = graph.adjacent(3);
-
-  for (forward_iterator<weighted_edge<int, float> > it = adj12.begin(); it != adj12.end(); ++it)
+  singly_linked_list<int> vertices = graph.vertices();
+  for (forward_iterator<int> it = vertices.begin(); it != vertices.end(); ++it)
   {
-    cout << (*it).to_string() << endl;
-  }
-
-  for (forward_iterator<weighted_edge<int, float> > it = adj3.begin(); it != adj3.end(); ++it)
-  {
-    cout << (*it).to_string() << endl;
-  }
-
-  dijkstra dijkstra(graph, 3);
-  singly_linked_list<weighted_edge<int, float> > path = dijkstra.path_to(5);
-
-  cout << "dijkstra" << endl;
-  for (forward_iterator<weighted_edge<int, float> > it = path.begin(); it != path.end(); ++it)
-  {
-    cout << (*it).to_string() << endl;
+    show_paths(graph, *it, vertices);
   }
 }

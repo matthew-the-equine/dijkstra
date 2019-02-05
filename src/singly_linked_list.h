@@ -22,6 +22,7 @@ public:
   singly_linked_list<T>();
 
   void push(T);
+  void push_back(T);
 
   forward_iterator<T> begin();
   forward_iterator<T> end();
@@ -50,6 +51,17 @@ singly_linked_list<T>::singly_linked_list() : head(NULL), tail(NULL), size(0)
 
 template<typename T>
 void singly_linked_list<T>::push(T value)
+{
+  node<T> *temp = new node<T>;
+  temp->data = value;
+  temp->next = head;
+  head = temp;
+
+  size++;
+}
+
+template<typename T>
+void singly_linked_list<T>::push_back(T value)
 {
   node<T> *temp = new node<T>;
   temp->data = value;

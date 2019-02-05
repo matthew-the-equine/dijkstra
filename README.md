@@ -7,10 +7,10 @@ Dijkstra algorithm implemented in c++ using linked lists
 [C++ Development using Visual Studio Code, CMake and LLDB](https://medium.com/audelabs/c-development-using-visual-studio-code-cmake-and-lldb-d0f13d38c563)
 
 # Run
-`.\dijkstra.exe -g notes/graf.txt`
+`.\dijkstra.exe -g examples/graf.txt`
 
 # Example
-`notes/graf.txt`
+`examples/graf.txt`
 
 Path from 2 to 3 with weight 43.05
 

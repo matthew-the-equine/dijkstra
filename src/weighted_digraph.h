@@ -62,7 +62,7 @@ singly_linked_list<V> weighted_digraph<V, W>::vertices()
   singly_linked_list<V> vertices = singly_linked_list<V>();
   for (typename map<V, singly_linked_list<weighted_directed_edge<V, W> > >::iterator it = adjacents.begin(); it != adjacents.end(); ++it)
   {
-    vertices.push(it->first);
+    vertices.push_back(it->first);
   }
   return vertices;
 }
@@ -85,7 +85,7 @@ void weighted_digraph<V, W>::add_edge(weighted_directed_edge<V, W> edge)
     add_vertex(edge.to);
   }
   
-  adjacents[edge.from].push(edge);
+  adjacents[edge.from].push_back(edge);
 }
 
 template <typename V, typename W>
